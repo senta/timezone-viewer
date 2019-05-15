@@ -1,0 +1,10 @@
+.TimeTable {
+  display: flex;
+
+  &__timezone {
+    
+    &--primary {
+      background: #DE5E56;
+    }
+  }
+}
