@@ -15,10 +15,7 @@ const timeFormat = (hour: number) => {
   return `${h}:00`
 }
 
-const Timezone: React.FC<TimelineProps> = ({
-  timezone,
-  primary
-}: TimelineProps) => {
+const Timezone: React.FC<TimelineProps> = ({ timezone, primary, children }) => {
   const base = 0 + moment.tz(primary || timezone).zone()
   const local = 0 + moment.tz(timezone).zone()
 
@@ -26,7 +23,7 @@ const Timezone: React.FC<TimelineProps> = ({
 
   return (
     <div className="Timezone">
-      {timezone}
+      {children}
       {range(0, 24).map(i => {
         let time = i + diff
         if (time < 0) {

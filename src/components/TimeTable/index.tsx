@@ -21,24 +21,31 @@ const TimeTable: React.FC = () => {
   return (
     <div className="TimeTable">
       <div className="TimeTable__timezone TimeTable__timezone--primary">
-        <TimezoneSelector
-          value={primaryTimezone}
-          onChange={zone => changePrimaryTimezone(zone)}
-        />
-        <Timeline timezone={primaryTimezone} />
+        <Timeline timezone={primaryTimezone}>
+          <TimezoneSelector
+            value={primaryTimezone}
+            onChange={zone => changePrimaryTimezone(zone)}
+          />
+        </Timeline>
       </div>
 
       {timezones.map((tiemzone, index) => (
         <div className="TimeTable__timezone">
-          <TimezoneSelector
-            value={tiemzone}
-            onChange={zone => {
+          <Timeline timezone={tiemzone} primary={primaryTimezone}>
+            <TimezoneSelector
+              value={tiemzone}
+              onChange={zone => {
+                const newTimezones = [...timezones]
+                newTimezones.splice(index, 1, zone)
+                changeTimezones(newTimezones)
+              }}
+            />
+            <button onClick={() => {
               const newTimezones = [...timezones]
-              newTimezones.splice(index, 1, zone)
+              newTimezones.splice(index, 1)
               changeTimezones(newTimezones)
-            }}
-          />
-          <Timeline timezone={tiemzone} primary={primaryTimezone} />
+            }}>delete</button>
+          </Timeline>
         </div>
       ))}
       <div className="TimeTable__timezone">
